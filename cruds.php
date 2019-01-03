@@ -25,8 +25,9 @@ $UserID = $row['id'];
 $Name = $row['name'];
 $Age = $row['age'];
 $Email = $row['email'];
+$Phone = $row['phone'];
 
-$UserArray = array('id'=>$UserID, 'name'=>$Name, 'age'=>$Age, 'email'=>$Email);
+$UserArray = array('id'=>$UserID, 'name'=>$Name, 'age'=>$Age, 'email'=>$Email, 'phone'=>$Phone);
 array_push($UsersArray,$UserArray);
 }
 
@@ -43,8 +44,9 @@ if ($_POST['addUser'] == '1') {
 $Name = $_POST['name'];
 $Age = $_POST['age'];
 $Email = $_POST['email'];
+$Phone = $_POST['phone'];
 
-$MyQuery = "INSERT INTO $Users (name,age,email) VALUES ('".$Name."','".$Age."','".$Email."')";
+$MyQuery = "INSERT INTO $Users (name,age,email,phone) VALUES ('".$Name."','".$Age."','".$Email."','".$Phone."')";
 
 		$q=@mysqli_query($GLOBALS["___mysqli_ston"], $MyQuery);
 

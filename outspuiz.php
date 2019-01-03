@@ -73,6 +73,12 @@ function usersList(users) {
   user_email_header.innerHTML = 'Email';
   user_cont_header.appendChild(user_email_header);
 
+  var user_phone_header = document.createElement('div');
+  user_phone_header.className = 'user_phone';
+  user_phone_header.setAttribute('id','user_phone_header');
+  user_phone_header.innerHTML = 'Phone';
+  user_cont_header.appendChild(user_phone_header);
+
 for(var a=0;a<users.length;a++) {
   var user_cont = document.createElement('div');
   user_cont.className = 'user_cont';
@@ -96,6 +102,12 @@ for(var a=0;a<users.length;a++) {
   user_email.setAttribute('id','user_email_'+users[a].id);
   user_email.innerHTML = users[a].email;
   user_cont.appendChild(user_email);
+
+  var user_phone = document.createElement('div');
+  user_phone.className = 'user_phone';
+  user_phone.setAttribute('id','user_phone_'+users[a].id);
+  user_phone.innerHTML = users[a].phone;
+  user_cont.appendChild(user_phone);
 
   var delete_user = document.createElement('i');
   delete_user.className = 'far fa-trash-alt';
@@ -202,39 +214,48 @@ $('#pword_form').on('submit',function(e) { // Listen for Public Form Submit
 
 });
 
-
 </script>
 
 </head>
 <body>
   <!-- Header -->
     <header id="header">
-      <a href="#" class="logo"><img src='/images/os_red_logo.jpg' id='os_logo_pub'></a>
+      <a href="#" class="logo"><img src='images/os_red_logo.jpg' id='os_logo_pub'></a>
     </header>
 <div id="main_cont">
   <div id="users_cont">
   </div>
   <div id="cruds_cont">
-    <div id="main_header">Add User</div>
-    <form action='cruds.php' id='add_user_form'>
+    <div id="main_header">Add Users</div>
+    <form action='cruds.php' class='add_user_form'>
+      <input type='button' id='add_user' value='Add User'/>
+
       <input type='hidden' name='addUser' value='1'/>
-      <div class='input_cont'>
-        <div class='input_title'>name</div>
-        <input class='name' type='name' name='name' id='name'/>
-      </div>
-      <div class='input_cont'>
-        <div class='input_title'>age</div>
-        <input class='age' type='number' name='age' id='age'/>
-      </div>
-      <div class='input_cont'>
-        <div class='input_title'>email</div>
-        <input class='email' type='email' name='email' id='email'/>
+
+      <div id='input_cont_wrapper'>
+        <div class='input_cont'>
+          <div class='input_title'>name</div>
+          <input title="Type in your first and last name." class='name' type='name' name='name' id='name'/>
+        </div>
+        <div class='input_cont'>
+          <div class='input_title'>age</div>
+          <input title="Type in your age." class='age' type='number' name='age' id='age'/>
+        </div>
+        <div class='input_cont'>
+          <div class='input_title'>email</div>
+          <input title="Type in your email address (ex. name@domain.com)." class='email' type='email' name='email' id='email'/>
+        </div>
+        <div class='input_cont'>
+          <div class='input_title'>phone</div>
+          <input title="Type in your phone number (ex. 555-555-5555)." class='phone' type='tel' name='phone' id='phone'/>
+        </div>
       </div>
       <br>
-      <input class='add_user_submit' type='submit' id='add_user_form_submit' value='Add User'/>
+      <input class='add_user_submit' type='button' id='add_user_form_submit' value='Submit'/>
       </form>
   </div>
   <div id="status_msg"></div>
+
   <div id="front_panel">
     <div id="panel_title">Are You Sure?</div>
     <div id="panel_contents">
@@ -244,6 +265,32 @@ $('#pword_form').on('submit',function(e) { // Listen for Public Form Submit
   </div>
 </div>
 
+<!-- Vanilla JS for toggling form and buttom visibility -->
+<script>
+var addUserButton = document.getElementById('add_user');
+var addUserSubmit = document.getElementById('add_user_form_submit');
+var inputForm = document.getElementById('input_cont_wrapper');
+var frontPanel = document.getElementById('front_panel');
 
+addUserButton.onclick = formHandler;
+addUserSubmit.onclick = submitHandler;
+  
+function formHandler() {
+  if (window.getComputedStyle(addUserSubmit).display === "none") {
+    addUserSubmit.style.display = "inline";
+    inputForm.style.display = "inline";
+    return;
+  } else if (window.getComputedStyle(addUserSubmit).display === "inline") {
+    addUserSubmit.style.display = "none";
+    inputForm.style.display = "none";
+    return;
+  }
+}
+
+function submitHandler() {
+  frontPanel.style.display = 'block';
+}
+
+</script>
 </body>
 </html>
